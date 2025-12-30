@@ -21,8 +21,7 @@ export default function PasswordInput({
 }: PasswordInputProps) {
   const [show, setShow] = useState(false);
 
-  const toggleShow = (e: MouseEvent) => {
-    e.preventDefault();
+  const toggleShow = () => {
     setShow(!show);
   };
 
