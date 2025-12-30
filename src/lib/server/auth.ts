@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { nextCookies } from "better-auth/next-js";
-import { resend } from "./server/resend";
+import { resend } from "./resend";
 import ResetPasswordEmail from "@/components/emails/reset-password";
 
 export const auth = betterAuth({
