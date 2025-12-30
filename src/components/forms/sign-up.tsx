@@ -4,14 +4,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "../inputs/input";
-import { AuthSignUpValidator } from "@/lib/server/auth";
+import { SignUpData, SignUpValidator } from "@/lib/schemas/auth";
 import { authClient } from "@/lib/authClient";
 import SpotifyButton from "../auth/buttons/spotify";
 import { useTransition } from "react";
 import ActionButton from "../auth/buttons/action";
 import PasswordInput from "../inputs/password";
-
-type SignUpSchema = z.infer<typeof AuthSignUpValidator>;
 
 export default function SignUpForm() {
   const {
@@ -20,12 +18,12 @@ export default function SignUpForm() {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<SignUpSchema>({
-    resolver: zodResolver(AuthSignUpValidator),
+  } = useForm<SignUpData>({
+    resolver: zodResolver(SignUpValidator),
   });
   const [isPending, startTransition] = useTransition();
 
-  const onSubmit = (data: SignUpSchema) => {
+  const onSubmit = (data: SignUpData) => {
     clearErrors();
     startTransition(async () => {
       await authClient.signUp.email(

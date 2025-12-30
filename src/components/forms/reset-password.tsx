@@ -1,16 +1,13 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthResetPasswordValidator } from "@/lib/server/auth";
+import { ResetPasswordData, ResetPasswordValidator } from "@/lib/schemas/auth";
 import ActionButton from "../auth/buttons/action";
 import { useTransition } from "react";
 import Input from "../inputs/input";
 import { authClient } from "@/lib/authClient";
 import { toast } from "sonner";
-
-type SignInSchema = z.infer<typeof AuthResetPasswordValidator>;
 
 export default function ResetPasswordForm() {
   const {
@@ -19,12 +16,12 @@ export default function ResetPasswordForm() {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<SignInSchema>({
-    resolver: zodResolver(AuthResetPasswordValidator),
+  } = useForm<ResetPasswordData>({
+    resolver: zodResolver(ResetPasswordValidator),
   });
   const [isPending, startTransition] = useTransition();
 
-  const onSubmit = (data: SignInSchema) => {
+  const onSubmit = (data: ResetPasswordData) => {
     clearErrors("root");
     startTransition(async () => {
       await authClient.requestPasswordReset(

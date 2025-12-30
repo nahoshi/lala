@@ -1,17 +1,14 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthSetNewPasswordValidator } from "@/lib/server/auth";
+import { SetNewPasswordData, SetNewPasswordValidator } from "@/lib/schemas/auth";
 import ActionButton from "../auth/buttons/action";
 import { useTransition } from "react";
 import { authClient } from "@/lib/authClient";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
 import PasswordInput from "../inputs/password";
-
-type SetNewPasswordSchema = z.infer<typeof AuthSetNewPasswordValidator>;
 
 export interface SetNewPasswordFormProps {
   token: string;
@@ -24,12 +21,12 @@ export default function SetNewPasswordForm({ token }: SetNewPasswordFormProps) {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<SetNewPasswordSchema>({
-    resolver: zodResolver(AuthSetNewPasswordValidator),
+  } = useForm<SetNewPasswordData>({
+    resolver: zodResolver(SetNewPasswordValidator),
   });
   const [isPending, startTransition] = useTransition();
 
-  const onSubmit = (data: SetNewPasswordSchema) => {
+  const onSubmit = (data: SetNewPasswordData) => {
     clearErrors("root");
     startTransition(async () => {
       await authClient.resetPassword(

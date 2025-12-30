@@ -1,9 +1,8 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthSignInValidator } from "@/lib/server/auth";
+import { LoginData, LoginValidator } from "@/lib/schemas/auth";
 import { authClient } from "@/lib/authClient";
 import SpotifyButton from "../auth/buttons/spotify";
 import ActionButton from "../auth/buttons/action";
@@ -12,8 +11,6 @@ import Input from "../inputs/input";
 import PasswordInput from "../inputs/password";
 import Link from "next/link";
 
-type SignInSchema = z.infer<typeof AuthSignInValidator>;
-
 export default function LoginForm() {
   const {
     register,
@@ -21,12 +18,12 @@ export default function LoginForm() {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<SignInSchema>({
-    resolver: zodResolver(AuthSignInValidator),
+  } = useForm<LoginData>({
+    resolver: zodResolver(LoginValidator),
   });
   const [isPending, startTransition] = useTransition();
 
-  const onSubmit = (data: SignInSchema) => {
+  const onSubmit = (data: LoginData) => {
     clearErrors("root");
     startTransition(async () => {
       await authClient.signIn.email(
