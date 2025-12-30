@@ -17,6 +17,11 @@ export default async function SetNewPassword({ params }: SetNewPasswordProps) {
       <CardLayout
         title="Altere sua senha"
         description="Insira sua nova senha e a confirme"
+        footer={{
+          text: "Alterou a sua senha?",
+          linkText: "Faça login",
+          LinkHref: "/login"
+        }}
       >
         <SetNewPasswordForm token={token} />
       </CardLayout>

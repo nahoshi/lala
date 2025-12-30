@@ -13,6 +13,11 @@ export default function ResetPassword() {
       <CardLayout
         title="Recupere sua senha"
         description="Use seu email para recuperar sua senha"
+        footer={{
+          text: "Lembrou a sua senha?",
+          linkText: "Faça login",
+          LinkHref: "/login"
+        }}
       >
         <ResetPasswordForm />
       </CardLayout>
