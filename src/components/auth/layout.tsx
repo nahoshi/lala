@@ -55,21 +55,30 @@ export default function AuthLayout({
           justify-center items-center
         "
       >
-        <div
-          className="
-            font-black text-6xl text-center
-            mix-blend-difference uppercase italic
-            md:text-8xl
-          "
-        >
-          {textFixed && <span>{textFixed}</span>}
-          <MorphingText
-            texts={texts}
-            className="
-              text-center
-            "
-          />
-        </div>
+{/* Container do Texto Fixo + Morphing */}
+<div
+  className="
+    font-black text-center italic uppercase mix-blend-difference
+    text-4xl 
+    [@media(max-height:700px)_and_(max-width:500px)_and_(pointer:coarse)]:text-3xl
+    sm:text-5xl 
+    md:text-6xl
+    lg:text-7xl
+  "
+>
+  {textFixed && <span className="block mb-2">{textFixed}</span>}
+  <MorphingText
+    texts={texts}
+    className="
+      text-center
+      text-4xl
+      [@media(max-height:700px)_and_(max-width:500px)_and_(pointer:coarse)]:text-3xl
+      sm:text-5xl
+      md:text-6xl
+      lg:text-7xl
+    "
+  />
+</div>
       </div>
     </>
   );
