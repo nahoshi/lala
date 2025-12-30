@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Space_Grotesk } from "next/font/google"
+
+export const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>
+      <body className={spaceGrotesk.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
