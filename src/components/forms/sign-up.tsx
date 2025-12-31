@@ -10,6 +10,7 @@ import SpotifyButton from "../auth/buttons/spotify";
 import { useTransition } from "react";
 import ActionButton from "../auth/buttons/action";
 import PasswordInput from "../inputs/password";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
   const {
@@ -22,6 +23,7 @@ export default function SignUpForm() {
     resolver: zodResolver(SignUpValidator),
   });
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const onSubmit = (data: SignUpData) => {
     clearErrors();
@@ -39,7 +41,6 @@ export default function SignUpForm() {
               ctx.error.status === 422 ||
               ctx.error.code === "USER_ALREADY_EXISTS"
             ) {
-              alert("a");
               setError("email", {
                 type: "manual",
                 message: "Este e-mail já está em uso.",
@@ -50,6 +51,9 @@ export default function SignUpForm() {
               });
             }
           },
+          onSuccess: () => {
+            router.push('/')
+          }
         }
       );
     });
